@@ -5,12 +5,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyApp
 {
     public partial class MainPage : MasterDetailPage 
     {
+        Button btn1, btn2, btn3, btn4, btn5, btn6;
+
         public MainPage()
         {
             InitializeComponent();
@@ -19,6 +22,17 @@ namespace MyApp
             var homePage = typeof(Views.homepages);
             Detail = new NavigationPage((Page)Activator.CreateInstance(homePage));
             IsPresented = false;
+
+            btn1 = new Button();
+            btn1.Text = "Тест по игре";
+            btn1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button));
+            btn1.BackgroundColor = Color.Gray;
+            btn1.TextColor = Color.Orange;
+            btn1.WidthRequest = 160;
+            btn1.HeightRequest = 60;
+            btn1.Margin = 5;
+            btn1.Clicked += Btn1_Clicked;
+
         }
 
         public List<MasterMenuItems> GetMenuList()
@@ -73,13 +87,6 @@ namespace MyApp
                 ImagePath = "B1T.png",
                 TargetPage = typeof(Views.B1T)
             });
-            list.Add(new MasterMenuItems()
-            {
-                Text = "About",
-                Detail = "",
-                ImagePath = "about1.png",
-                TargetPage = typeof(Views.About)
-            });
             return list;
         }
 
@@ -91,6 +98,11 @@ namespace MyApp
             IsPresented = false;
         }
 
+        private void Btn1_Clicked(object sender, EventArgs e)
+        {
+            Uri halflife = new Uri("https://vgtimes.ru/tests/36-test-naskolko-horosho-ty-znaesh-mir-half-life.html");
+            Browser.OpenAsync(halflife);
+        }
 
     }
 }
